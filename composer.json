@@ -14,7 +14,7 @@
         "laravel/pint": "^1.16",
         "larastan/larastan": "^2.5",
         "phpstan/phpstan-mockery": "^1.1",
-        "phpunit/phpunit": "^11.0",
+        "phpunit/phpunit": "^10.0",
         "orchestra/testbench": "^9.0"
     },
     "authors": [
