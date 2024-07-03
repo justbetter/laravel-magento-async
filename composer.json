@@ -1,0 +1,65 @@
+{
+    "name": "justbetter/laravel-magento-async",
+    "description": "Interact with Magento via Async requests",
+    "type": "package",
+    "license": "MIT",
+    "require": {
+        "php": "^8.2",
+        "guzzlehttp/guzzle": "^7.5",
+        "laravel/framework": "^11.0",
+        "justbetter/laravel-magento-client": "^2.4",
+        "justbetter/laravel-magento-webhooks": "^2.1"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.16",
+        "larastan/larastan": "^2.5",
+        "phpstan/phpstan-mockery": "^1.1",
+        "phpunit/phpunit": "^11.0",
+        "orchestra/testbench": "^9.0"
+    },
+    "authors": [
+        {
+            "name": "Vincent Boon",
+            "email": "vincent@justbetter.nl",
+            "role": "Developer"
+        },
+        {
+            "name": "Ramon Rietdijk",
+            "email": "ramon@justbetter.nl",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "JustBetter\\MagentoAsync\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JustBetter\\MagentoAsync\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan",
+        "style": "pint --test",
+        "quality": [
+            "@test",
+            "@analyse",
+            "@style"
+        ],
+        "fix-style": "pint"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JustBetter\\MagentoAsync\\ServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
