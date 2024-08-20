@@ -4,6 +4,7 @@ namespace JustBetter\MagentoAsync\Tests\Actions;
 
 use Illuminate\Support\Facades\Bus;
 use JustBetter\MagentoAsync\Actions\UpdateBulkStatuses;
+use JustBetter\MagentoAsync\Enums\OperationStatus;
 use JustBetter\MagentoAsync\Jobs\UpdateBulkStatusJob;
 use JustBetter\MagentoAsync\Models\BulkRequest;
 use JustBetter\MagentoAsync\Tests\TestCase;
@@ -16,7 +17,8 @@ class UpdateBulkStatusesTest extends TestCase
     {
         Bus::fake();
 
-        BulkRequest::query()->create([
+        /** @var BulkRequest $status1 */
+        $status1 = BulkRequest::query()->create([
             'magento_connection' => '::magento-connection::',
             'store_code' => '::store-code::',
             'path' => '::path::',
@@ -25,7 +27,8 @@ class UpdateBulkStatusesTest extends TestCase
             'response' => [],
         ]);
 
-        BulkRequest::query()->create([
+        /** @var BulkRequest $status2 */
+        $status2 = BulkRequest::query()->create([
             'magento_connection' => '::magento-connection::',
             'store_code' => '::store-code::',
             'path' => '::path::',
@@ -34,7 +37,8 @@ class UpdateBulkStatusesTest extends TestCase
             'response' => [],
         ]);
 
-        BulkRequest::query()->create([
+        /** @var BulkRequest $status3 */
+        $status3 = BulkRequest::query()->create([
             'magento_connection' => '::magento-connection::',
             'store_code' => '::store-code::',
             'path' => '::path::',
@@ -43,10 +47,25 @@ class UpdateBulkStatusesTest extends TestCase
             'response' => [],
         ]);
 
+        $status1->operations()->create([
+            'operation_id' => 1,
+            'status' => OperationStatus::Open,
+        ]);
+
+        $status2->operations()->create([
+            'operation_id' => 1,
+            'status' => OperationStatus::Open,
+        ]);
+
+        $status3->operations()->create([
+            'operation_id' => 1,
+            'status' => OperationStatus::Complete,
+        ]);
+
         /** @var UpdateBulkStatuses $action */
         $action = app(UpdateBulkStatuses::class);
         $action->update();
 
-        Bus::assertDispatched(UpdateBulkStatusJob::class, 3);
+        Bus::assertDispatched(UpdateBulkStatusJob::class, 2);
     }
 }
