@@ -107,7 +107,7 @@ class CleanBulkRequestsTest extends TestCase
             ],
 
             'Failed operations' => [
-                'requestCreatedAt' => now()->subHours(2),
+                'requestCreatedAt' => now()->subHours(1),
                 'operations' => [
                     [
                         'operation_id' => 1,
