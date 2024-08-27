@@ -54,7 +54,7 @@ class UpdateBulkStatusesTest extends TestCase
 
         $status2->operations()->create([
             'operation_id' => 1,
-            'status' => OperationStatus::Open,
+            'status' => null,
         ]);
 
         $status3->operations()->create([
