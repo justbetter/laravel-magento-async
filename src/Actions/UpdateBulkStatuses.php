@@ -15,7 +15,9 @@ class UpdateBulkStatuses implements UpdatesBulkStatuses
     {
         BulkRequest::query()
             ->whereHas('operations', function (Builder $query): void {
-                $query->where('status', '=', OperationStatus::Open);
+                $query
+                    ->where('status', '=', OperationStatus::Open)
+                    ->orWhereNull('status');
             })
             ->get()
             ->each(fn (BulkRequest $bulkRequest): PendingDispatch => UpdateBulkStatusJob::dispatch($bulkRequest));
