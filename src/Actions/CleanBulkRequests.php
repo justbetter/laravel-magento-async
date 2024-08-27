@@ -18,6 +18,7 @@ class CleanBulkRequests implements CleansBulkRequests
         // Delete completed statuses
         BulkOperation::query()
             ->where('status', '=', OperationStatus::Complete)
+            ->where('updated_at', '<', now()->subHour()) // Keep completed for at least one hour
             ->delete();
 
         BulkRequest::query()

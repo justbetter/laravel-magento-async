@@ -29,10 +29,16 @@ class CleanBulkRequestsTest extends TestCase
         $request->operations()->create([
             'operation_id' => 1,
             'status' => OperationStatus::Complete,
+            'updated_at' => now()->subHours(2),
         ]);
 
         $request->operations()->create([
             'operation_id' => 2,
+            'status' => OperationStatus::Complete,
+        ]);
+
+        $request->operations()->create([
+            'operation_id' => 3,
             'status' => OperationStatus::Open,
         ]);
 
@@ -40,7 +46,7 @@ class CleanBulkRequestsTest extends TestCase
         $action = app(CleanBulkRequests::class);
         $action->clean();
 
-        $this->assertEquals(1, $request->operations()->count());
+        $this->assertEquals(2, $request->operations()->count());
     }
 
     /** @param array<string, mixed> $operations */
@@ -94,6 +100,7 @@ class CleanBulkRequestsTest extends TestCase
                     [
                         'operation_id' => 1,
                         'status' => OperationStatus::Complete,
+                        'updated_at' => now()->subHours(2),
                     ],
                 ],
                 'shouldBeDeleted' => true,
