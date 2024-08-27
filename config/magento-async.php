@@ -3,6 +3,6 @@
 return [
     'queue' => 'default',
 
-    /* Cleanup requests after amount of time (hours) */
-    'cleanup' => 3,
+    /*  Always cleanup bulk requests after amount of time (hours) */
+    'cleanup' => 168,
 ];
