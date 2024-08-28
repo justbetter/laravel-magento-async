@@ -1,6 +1,14 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/justbetter/laravel-magento-async/compare/1.0.2...main)
+[Unreleased changes](https://github.com/justbetter/laravel-magento-async/compare/1.0.3...main)
+## [1.0.3](https://github.com/justbetter/laravel-magento-async/releases/tag/1.0.3) - 2024-08-28
+
+### What's Changed
+* Adjust bulk request cleanup by @VincentBean in https://github.com/justbetter/laravel-magento-async/pull/3
+
+
+**Full Changelog**: https://github.com/justbetter/laravel-magento-async/compare/1.0.2...1.0.3
+
 ## [1.0.2](https://github.com/justbetter/laravel-magento-async/releases/tag/1.0.2) - 2024-08-27
 
 ### What's Changed
