@@ -2,7 +2,10 @@
 
 namespace JustBetter\MagentoAsync\Actions;
 
+use Illuminate\Database\Eloquent\Builder;
 use JustBetter\MagentoAsync\Contracts\CleansBulkRequests;
+use JustBetter\MagentoAsync\Enums\OperationStatus;
+use JustBetter\MagentoAsync\Models\BulkOperation;
 use JustBetter\MagentoAsync\Models\BulkRequest;
 
 class CleanBulkRequests implements CleansBulkRequests
@@ -12,8 +15,21 @@ class CleanBulkRequests implements CleansBulkRequests
         /** @var int $cleanupHours */
         $cleanupHours = config('magento-async.cleanup');
 
+        // Delete completed statuses
+        BulkOperation::query()
+            ->where('status', '=', OperationStatus::Complete)
+            ->where('updated_at', '<', now()->subHour()) // Keep completed for at least one hour
+            ->delete();
+
         BulkRequest::query()
-            ->where('created_at', '<', now()->subHours($cleanupHours))
+            // Delete where there are no more operations
+            ->where(function (Builder $query): void {
+                $query
+                    ->whereDoesntHave('operations')
+                    ->where('created_at', '<', now()->subHour()); // Never delete within an hour
+            })
+            // Always delete after configured cleanup time
+            ->orWhere('created_at', '<', now()->subHours($cleanupHours))
             ->delete();
     }
 
