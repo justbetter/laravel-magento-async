@@ -20,7 +20,7 @@ class RetryBulkRequest implements RetriesBulkRequest
     {
         /** @var array<int, mixed> $payload */
         $payload = [];
-        /** @var array<int, Model> $subjects */
+        /** @var array<int, ?Model> $subjects */
         $subjects = [];
 
         $operations = $bulkRequest->operations;

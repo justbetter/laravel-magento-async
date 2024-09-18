@@ -21,7 +21,7 @@ class MagentoAsync
 
     protected ?Model $subject = null;
 
-    /** @var array<int, Model> */
+    /** @var array<int, ?Model> */
     protected array $subjects = [];
 
     public function __construct(
@@ -70,7 +70,7 @@ class MagentoAsync
         return $this;
     }
 
-    /** @param  array<int, Model>  $subjects */
+    /** @param  array<int, ?Model>  $subjects */
     public function subjects(array $subjects): static
     {
         $this->subjects = $subjects;
