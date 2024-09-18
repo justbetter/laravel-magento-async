@@ -12,7 +12,9 @@ use JustBetter\MagentoClient\Client\Magento;
 
 class RetryBulkRequest implements RetriesBulkRequest
 {
-    public function __construct(protected MagentoAsync $client) {}
+    public function __construct(protected MagentoAsync $client)
+    {
+    }
 
     public function retry(BulkRequest $bulkRequest, bool $onlyFailed): ?BulkRequest
     {
@@ -28,12 +30,16 @@ class RetryBulkRequest implements RetriesBulkRequest
             /** @var BulkOperation $operation */
             $operation = $operations->where('operation_id', '=', $index)->firstOrFail();
 
-            if ($onlyFailed && ! in_array($operation->status, OperationStatus::failedStatuses()) || $operation->subject === null) {
+            if ($onlyFailed && ! in_array($operation->status, OperationStatus::failedStatuses())) {
                 continue;
             }
 
             $payload[] = $request;
-            $subjects[] = $operation->subject;
+            if ($operation->subject !== null) {
+                $subjects[] = $operation->subject;
+            } else {
+                $subjects[] = null;
+            }
         }
 
         if ($payload === []) {

@@ -101,4 +101,35 @@ class RetryBulkRequestTest extends TestCase
 
         Http::assertNothingSent();
     }
+
+    #[Test]
+    public function it_does_nothing_without_method(): void
+    {
+        Http::fake()->preventStrayRequests();
+
+        /** @var BulkRequest $request */
+        $request = BulkRequest::query()->create([
+            'magento_connection' => '::magento-connection::',
+            'store_code' => '::store-code::',
+            'method' => '',
+            'path' => '::path::',
+            'bulk_uuid' => '::bulk-uuid-1::',
+            'request' => [['call-1']],
+            'response' => [],
+            'created_at' => now(),
+        ]);
+
+        $request->operations()->create([
+            'operation_id' => 0,
+            'status' => OperationStatus::Complete,
+            'updated_at' => now()->subHours(2),
+        ]);
+
+        /** @var RetryBulkRequest $action */
+        $action = app(RetryBulkRequest::class);
+
+        $action->retry($request, false);
+
+        Http::assertNothingSent();
+    }
 }
