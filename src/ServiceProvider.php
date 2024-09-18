@@ -4,9 +4,11 @@ namespace JustBetter\MagentoAsync;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use JustBetter\MagentoAsync\Actions\CleanBulkRequests;
+use JustBetter\MagentoAsync\Actions\RetryBulkRequest;
 use JustBetter\MagentoAsync\Actions\UpdateBulkStatus;
 use JustBetter\MagentoAsync\Actions\UpdateBulkStatuses;
 use JustBetter\MagentoAsync\Commands\CleanBulkRequestsCommand;
+use JustBetter\MagentoAsync\Commands\RetryBulkRequestCommand;
 use JustBetter\MagentoAsync\Commands\UpdateBulkStatusCommand;
 use JustBetter\MagentoAsync\Commands\UpdateBulkStatusesCommand;
 
@@ -31,6 +33,7 @@ class ServiceProvider extends BaseServiceProvider
         UpdateBulkStatus::bind();
         UpdateBulkStatuses::bind();
         CleanBulkRequests::bind();
+        RetryBulkRequest::bind();
 
         return $this;
     }
@@ -66,6 +69,7 @@ class ServiceProvider extends BaseServiceProvider
                 UpdateBulkStatusCommand::class,
                 UpdateBulkStatusesCommand::class,
                 CleanBulkRequestsCommand::class,
+                RetryBulkRequestCommand::class,
             ]);
         }
 

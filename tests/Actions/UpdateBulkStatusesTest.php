@@ -21,6 +21,7 @@ class UpdateBulkStatusesTest extends TestCase
         $status1 = BulkRequest::query()->create([
             'magento_connection' => '::magento-connection::',
             'store_code' => '::store-code::',
+            'method' => 'POST',
             'path' => '::path::',
             'bulk_uuid' => '::bulk-uuid-1::',
             'request' => [],
@@ -31,6 +32,7 @@ class UpdateBulkStatusesTest extends TestCase
         $status2 = BulkRequest::query()->create([
             'magento_connection' => '::magento-connection::',
             'store_code' => '::store-code::',
+            'method' => 'POST',
             'path' => '::path::',
             'bulk_uuid' => '::bulk-uuid-2::',
             'request' => [],
@@ -41,6 +43,7 @@ class UpdateBulkStatusesTest extends TestCase
         $status3 = BulkRequest::query()->create([
             'magento_connection' => '::magento-connection::',
             'store_code' => '::store-code::',
+            'method' => 'POST',
             'path' => '::path::',
             'bulk_uuid' => '::bulk-uuid-3::',
             'request' => [],

@@ -37,6 +37,7 @@ class MagentoAsyncTest extends TestCase
         $subject = BulkRequest::query()->create([
             'magento_connection' => '::magento-connection::',
             'store_code' => '::store-code::',
+            'method' => 'POST',
             'path' => '::path::',
             'bulk_uuid' => '::bulk-uuid::',
             'request' => [],
@@ -106,6 +107,7 @@ class MagentoAsyncTest extends TestCase
             BulkRequest::query()->create([
                 'magento_connection' => '::magento-connection::',
                 'store_code' => '::store-code::',
+                'method' => 'POST',
                 'path' => '::path::',
                 'bulk_uuid' => '::bulk-uuid-1::',
                 'request' => [],
@@ -114,6 +116,7 @@ class MagentoAsyncTest extends TestCase
             BulkRequest::query()->create([
                 'magento_connection' => '::magento-connection::',
                 'store_code' => '::store-code::',
+                'method' => 'POST',
                 'path' => '::path::',
                 'bulk_uuid' => '::bulk-uuid-2::',
                 'request' => [],
