@@ -8,7 +8,7 @@ use JustBetter\MagentoAsync\Models\BulkRequest;
 
 class RetryBulkRequestCommand extends Command
 {
-    protected $signature = 'magento:async:retry-bulk-request {id} {--only-failed=true}';
+    protected $signature = 'magento:async:retry-bulk-request {id} {--only-failed}';
 
     protected $description = 'Retry bulk request';
 
