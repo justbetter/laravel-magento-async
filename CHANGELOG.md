@@ -1,6 +1,14 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/justbetter/laravel-magento-async/compare/1.0.3...main)
+[Unreleased changes](https://github.com/justbetter/laravel-magento-async/compare/1.1.0...main)
+## [1.1.0](https://github.com/justbetter/laravel-magento-async/releases/tag/1.1.0) - 2024-09-19
+
+### What's Changed
+* Implement retries by @VincentBean in https://github.com/justbetter/laravel-magento-async/pull/4
+
+
+**Full Changelog**: https://github.com/justbetter/laravel-magento-async/compare/1.0.3...1.1.0
+
 ## [1.0.3](https://github.com/justbetter/laravel-magento-async/releases/tag/1.0.3) - 2024-08-28
 
 ### What's Changed
