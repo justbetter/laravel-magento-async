@@ -10,6 +10,8 @@ return new class extends Migration
     {
         Schema::table('magento_bulk_requests', function (Blueprint $table): void {
             $table->unsignedBigInteger('retry_of')->after('id')->nullable();
+
+            $table->foreign('retry_of')->references('id')->on('magento_bulk_requests')->onDelete('set null');
         });
     }
 

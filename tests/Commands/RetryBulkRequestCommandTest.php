@@ -2,6 +2,7 @@
 
 namespace JustBetter\MagentoAsync\Tests\Commands;
 
+use Illuminate\Testing\PendingCommand;
 use JustBetter\MagentoAsync\Commands\RetryBulkRequestCommand;
 use JustBetter\MagentoAsync\Contracts\RetriesBulkRequest;
 use JustBetter\MagentoAsync\Models\BulkRequest;
@@ -34,12 +35,12 @@ class RetryBulkRequestCommandTest extends TestCase
                 ->andReturn($request);
         });
 
+        /** @var PendingCommand $result */
         $result = $this->artisan(RetryBulkRequestCommand::class, [
             'id' => $request->id,
             '--only-failed' => true,
         ]);
 
-        $this->assertFalse(is_int($result));
         $result->assertSuccessful();
     }
 
@@ -66,12 +67,12 @@ class RetryBulkRequestCommandTest extends TestCase
                 ->andReturnNull();
         });
 
+        /** @var PendingCommand $result */
         $result = $this->artisan(RetryBulkRequestCommand::class, [
             'id' => $request->id,
             '--only-failed' => true,
         ]);
 
-        $this->assertFalse(is_int($result));
         $result->assertFailed();
     }
 }

@@ -6,15 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use JustBetter\MagentoAsync\Client\MagentoAsync;
 use JustBetter\MagentoAsync\Contracts\RetriesBulkRequest;
 use JustBetter\MagentoAsync\Enums\OperationStatus;
+use JustBetter\MagentoAsync\Exceptions\InvalidMethodException;
 use JustBetter\MagentoAsync\Models\BulkOperation;
 use JustBetter\MagentoAsync\Models\BulkRequest;
 use JustBetter\MagentoClient\Client\Magento;
 
 class RetryBulkRequest implements RetriesBulkRequest
 {
-    public function __construct(protected MagentoAsync $client)
-    {
-    }
+    public function __construct(protected MagentoAsync $client) {}
 
     public function retry(BulkRequest $bulkRequest, bool $onlyFailed): ?BulkRequest
     {
@@ -35,11 +34,7 @@ class RetryBulkRequest implements RetriesBulkRequest
             }
 
             $payload[] = $request;
-            if ($operation->subject !== null) {
-                $subjects[] = $operation->subject;
-            } else {
-                $subjects[] = null;
-            }
+            $subjects[] = $operation->subject;
         }
 
         if ($payload === []) {
@@ -54,13 +49,11 @@ class RetryBulkRequest implements RetriesBulkRequest
             'POST' => $pendingRequest->postBulk($bulkRequest->path, $payload),
             'PUT' => $pendingRequest->putBulk($bulkRequest->path, $payload),
             'DELETE' => $pendingRequest->deleteBulk($bulkRequest->path, $payload),
-            default => null,
+            default => throw new InvalidMethodException('Unsupported method "'.$bulkRequest->method.'"'),
         };
 
         if ($retry !== null) {
-            $retry->update([
-                'retry_of' => $bulkRequest->id,
-            ]);
+            $bulkRequest->retries()->save($retry);
         }
 
         return $retry;

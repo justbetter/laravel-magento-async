@@ -51,7 +51,7 @@ class BulkRequestTest extends TestCase
             'response' => [],
         ]);
 
-        /** @var BulkRequest $retry  */
+        /** @var BulkRequest $retry */
         $retry = BulkRequest::query()->create([
             'retry_of' => $request->id,
             'magento_connection' => '::magento-connection::',
