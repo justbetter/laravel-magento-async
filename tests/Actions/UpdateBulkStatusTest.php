@@ -42,6 +42,7 @@ class UpdateBulkStatusTest extends TestCase
         $bulkRequest = BulkRequest::query()->create([
             'magento_connection' => 'default',
             'store_code' => 'all',
+            'method' => 'POST',
             'path' => 'products',
             'bulk_uuid' => '4c51f869-0a77-4238-be2a-290dd5081666',
             'request' => [],
@@ -96,6 +97,7 @@ class UpdateBulkStatusTest extends TestCase
         $bulkRequest = BulkRequest::query()->create([
             'magento_connection' => 'default',
             'store_code' => 'all',
+            'method' => 'POST',
             'path' => 'products',
             'bulk_uuid' => '4c51f869-0a77-4238-be2a-290dd5081666',
             'request' => [],

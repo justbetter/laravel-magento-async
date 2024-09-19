@@ -21,6 +21,7 @@ class UpdateBulkStatusCommandTest extends TestCase
         $bulkRequest = BulkRequest::query()->create([
             'magento_connection' => '::magento-connection::',
             'store_code' => '::store-code::',
+            'method' => 'POST',
             'path' => '::path::',
             'bulk_uuid' => '::bulk-uuid::',
             'request' => [],

@@ -21,7 +21,7 @@ class MagentoAsync
 
     protected ?Model $subject = null;
 
-    /** @var array<int, Model> */
+    /** @var array<int, ?Model> */
     protected array $subjects = [];
 
     public function __construct(
@@ -70,7 +70,7 @@ class MagentoAsync
         return $this;
     }
 
-    /** @param array<int, Model> $subjects */
+    /** @param  array<int, ?Model>  $subjects */
     public function subjects(array $subjects): static
     {
         $this->subjects = $subjects;
@@ -78,60 +78,61 @@ class MagentoAsync
         return $this;
     }
 
-    /** @param array<mixed, mixed> $data */
+    /** @param  array<mixed, mixed>  $data */
     public function post(string $path, array $data = []): BulkRequest
     {
         $response = $this->magento->postAsync($path, $data);
 
-        return $this->processResponse($response, $path, $data);
+        return $this->processResponse($response, 'POST', $path, $data);
     }
 
-    /** @param array<mixed, mixed> $data */
+    /** @param  array<mixed, mixed>  $data */
     public function postBulk(string $path, array $data = []): BulkRequest
     {
         $response = $this->magento->postBulk($path, $data);
 
-        return $this->processResponse($response, $path, $data, true);
+        return $this->processResponse($response, 'POST', $path, $data, true);
     }
 
-    /** @param array<mixed, mixed> $data */
+    /** @param  array<mixed, mixed>  $data */
     public function put(string $path, array $data = []): BulkRequest
     {
         $response = $this->magento->putAsync($path, $data);
 
-        return $this->processResponse($response, $path, $data);
+        return $this->processResponse($response, 'PUT', $path, $data);
     }
 
-    /** @param array<mixed, mixed> $data */
+    /** @param  array<mixed, mixed>  $data */
     public function putBulk(string $path, array $data = []): BulkRequest
     {
         $response = $this->magento->putBulk($path, $data);
 
-        return $this->processResponse($response, $path, $data, true);
+        return $this->processResponse($response, 'PUT', $path, $data, true);
     }
 
-    /** @param array<mixed, mixed> $data */
+    /** @param  array<mixed, mixed>  $data */
     public function delete(string $path, array $data = []): BulkRequest
     {
         $response = $this->magento->deleteAsync($path, $data);
 
-        return $this->processResponse($response, $path, $data);
+        return $this->processResponse($response, 'DELETE', $path, $data);
     }
 
-    /** @param array<mixed, mixed> $data */
+    /** @param  array<mixed, mixed>  $data */
     public function deleteBulk(string $path, array $data = []): BulkRequest
     {
         $response = $this->magento->deleteBulk($path, $data);
 
-        return $this->processResponse($response, $path, $data, true);
+        return $this->processResponse($response, 'DELETE', $path, $data, true);
     }
 
-    /** @param array<mixed, mixed> $data */
+    /** @param  array<mixed, mixed>  $data */
     public function processResponse(
         Response $response,
+        string $method,
         string $path,
         array $data = [],
-        bool $bulk = false
+        bool $bulk = false,
     ): BulkRequest {
         $response->throw();
 
@@ -141,16 +142,17 @@ class MagentoAsync
         /** @var array<int, array<string, mixed>> $requestItems */
         $requestItems = $response->json('request_items', []);
 
-        $response = $response->json(null, []);
+        $responseData = $response->json(null, []);
 
         /** @var BulkRequest $bulkRequest */
         $bulkRequest = BulkRequest::query()->create([
             'magento_connection' => $this->magento->connection,
             'store_code' => $this->magento->storeCode ?? 'all',
+            'method' => $method,
             'path' => $path,
             'bulk_uuid' => $bulkUuid,
             'request' => $data,
-            'response' => $response,
+            'response' => $responseData,
         ]);
 
         foreach ($requestItems as $index => $requestItem) {

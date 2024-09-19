@@ -11,11 +11,12 @@
         "justbetter/laravel-magento-webhooks": "^2.1"
     },
     "require-dev": {
-        "laravel/pint": "^1.16",
         "larastan/larastan": "^2.5",
+        "laravel/pint": "^1.16",
+        "orchestra/testbench": "^9.0",
+        "pestphp/pest": "^2.0",
         "phpstan/phpstan-mockery": "^1.1",
-        "phpunit/phpunit": "^10.0",
-        "orchestra/testbench": "^9.0"
+        "phpunit/phpunit": "^10.0"
     },
     "authors": [
         {
@@ -51,7 +52,10 @@
         "fix-style": "pint"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "laravel": {
