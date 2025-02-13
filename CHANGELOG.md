@@ -1,6 +1,14 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/justbetter/laravel-magento-async/compare/1.1.0...main)
+[Unreleased changes](https://github.com/justbetter/laravel-magento-async/compare/1.2.0...main)
+## [1.2.0](https://github.com/justbetter/laravel-magento-async/releases/tag/1.2.0) - 2025-02-13
+
+### What's Changed
+* Laravel 12 support by @VincentBean in https://github.com/justbetter/laravel-magento-async/pull/5
+
+
+**Full Changelog**: https://github.com/justbetter/laravel-magento-async/compare/1.1.0...1.2.0
+
 ## [1.1.0](https://github.com/justbetter/laravel-magento-async/releases/tag/1.1.0) - 2024-09-19
 
 ### What's Changed
