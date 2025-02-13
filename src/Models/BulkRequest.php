@@ -16,8 +16,8 @@ use Illuminate\Support\Carbon;
  * @property string $method
  * @property string $path
  * @property string $bulk_uuid
- * @property array $request
- * @property array $response
+ * @property array<array-key, mixed> $request
+ * @property array<array-key, mixed> $response
  * @property ?Carbon $started_at
  * @property ?Carbon $created_at
  * @property ?Carbon $updated_at
@@ -37,19 +37,19 @@ class BulkRequest extends Model
         'started_at' => 'datetime',
     ];
 
-    /** @return HasMany<BulkOperation> */
+    /** @return HasMany<BulkOperation, $this> */
     public function operations(): HasMany
     {
         return $this->hasMany(BulkOperation::class);
     }
 
-    /** @return HasMany<BulkRequest> */
+    /** @return HasMany<BulkRequest, $this> */
     public function retries(): HasMany
     {
         return $this->hasMany(BulkRequest::class, 'retry_of', 'id');
     }
 
-    /** @return BelongsTo<BulkRequest, BulkRequest> */
+    /** @return BelongsTo<covariant BulkRequest, covariant BulkRequest> */
     public function retryOf(): BelongsTo
     {
         return $this->belongsTo(BulkRequest::class, 'retry_of', 'id');

@@ -14,7 +14,7 @@ use JustBetter\MagentoAsync\Enums\OperationStatus;
  * @property ?string $subject_type
  * @property int $operation_id
  * @property ?OperationStatus $status
- * @property ?array $response
+ * @property ?array<array-key, mixed> $response
  * @property ?Carbon $created_at
  * @property ?Carbon $updated_at
  * @property ?Model $subject
@@ -31,13 +31,13 @@ class BulkOperation extends Model
         'response' => 'array',
     ];
 
-    /** @return MorphTo<Model, BulkOperation> */
+    /** @return MorphTo<Model, covariant BulkOperation> */
     public function subject(): MorphTo
     {
         return $this->morphTo();
     }
 
-    /** @return BelongsTo<BulkRequest, BulkOperation> */
+    /** @return BelongsTo<covariant BulkRequest, covariant BulkOperation> */
     public function request(): BelongsTo
     {
         return $this->belongsTo(BulkRequest::class, 'bulk_request_id');

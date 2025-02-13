@@ -52,9 +52,7 @@ class RetryBulkRequest implements RetriesBulkRequest
             default => throw new InvalidMethodException('Unsupported method "'.$bulkRequest->method.'"'),
         };
 
-        if ($retry !== null) {
-            $bulkRequest->retries()->save($retry);
-        }
+        $bulkRequest->retries()->save($retry);
 
         return $retry;
     }
