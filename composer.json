@@ -4,19 +4,19 @@
     "type": "package",
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "guzzlehttp/guzzle": "^7.5",
-        "laravel/framework": "^11.0",
         "justbetter/laravel-magento-client": "^2.4",
-        "justbetter/laravel-magento-webhooks": "^2.1"
+        "justbetter/laravel-magento-webhooks": "^2.1",
+        "laravel/framework": "^11.0|^12.0"
     },
     "require-dev": {
-        "larastan/larastan": "^2.5",
-        "laravel/pint": "^1.16",
+        "larastan/larastan": "^3.0",
+        "laravel/pint": "^1.20",
         "orchestra/testbench": "^9.0",
-        "pestphp/pest": "^2.0",
-        "phpstan/phpstan-mockery": "^1.1",
-        "phpunit/phpunit": "^10.0"
+        "pestphp/pest": "^3.7",
+        "phpstan/phpstan-mockery": "^2.0",
+        "phpunit/phpunit": "^11.5"
     },
     "authors": [
         {
@@ -42,14 +42,16 @@
     },
     "scripts": {
         "test": "phpunit",
-        "analyse": "phpstan",
+        "analyse": "phpstan --memory-limit=256M",
         "style": "pint --test",
         "quality": [
-            "@test",
+            "@style",
             "@analyse",
-            "@style"
+            "@test",
+            "@coverage"
         ],
-        "fix-style": "pint"
+        "fix-style": "pint",
+        "coverage": "XDEBUG_MODE=coverage php vendor/bin/pest --coverage --min=100"
     },
     "config": {
         "sort-packages": true,

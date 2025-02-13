@@ -10,6 +10,8 @@ use JustBetter\MagentoAsync\Models\BulkOperation;
  * @mixin Model
  *
  * @codeCoverageIgnore
+ *
+ * @phpstan-ignore-next-line
  */
 trait HasOperations
 {
