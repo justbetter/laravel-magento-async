@@ -17,7 +17,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('magento_bulk_request_operations', function (Blueprint $table): void {
-            $table->dropIndex('status');
+            $table->dropIndex(['status']);
             $table->dropIndex(['status', 'created_at']);
         });
     }
