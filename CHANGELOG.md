@@ -1,6 +1,15 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/justbetter/laravel-magento-async/compare/1.2.0...main)
+[Unreleased changes](https://github.com/justbetter/laravel-magento-async/compare/1.2.1...main)
+## [1.2.1](https://github.com/justbetter/laravel-magento-async/releases/tag/1.2.1) - 2025-10-17
+
+### What's Changed
+* Adjust workflows by @VincentBean in https://github.com/justbetter/laravel-magento-async/pull/6
+* Add indexes by @VincentBean in https://github.com/justbetter/laravel-magento-async/pull/7
+
+
+**Full Changelog**: https://github.com/justbetter/laravel-magento-async/compare/1.2.0...1.2.1
+
 ## [1.2.0](https://github.com/justbetter/laravel-magento-async/releases/tag/1.2.0) - 2025-02-13
 
 ### What's Changed
