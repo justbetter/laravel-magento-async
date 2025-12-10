@@ -26,10 +26,10 @@ class RetryBulkRequest implements RetriesBulkRequest
 
         foreach ($bulkRequest->request as $index => $request) {
 
-            /** @var BulkOperation $operation */
-            $operation = $operations->where('operation_id', '=', $index)->firstOrFail();
+            /** @var ?BulkOperation $operation */
+            $operation = $operations->where('operation_id', '=', $index)->first();
 
-            if ($onlyFailed && ! in_array($operation->status, OperationStatus::failedStatuses())) {
+            if ($operation === null || ($onlyFailed && ! in_array($operation->status, OperationStatus::failedStatuses()))) {
                 continue;
             }
 
