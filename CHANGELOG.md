@@ -1,6 +1,14 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/justbetter/laravel-magento-async/compare/1.2.1...main)
+[Unreleased changes](https://github.com/justbetter/laravel-magento-async/compare/1.2.2...main)
+## [1.2.2](https://github.com/justbetter/laravel-magento-async/releases/tag/1.2.2) - 2025-12-10
+
+### What's Changed
+* Allow retry when some operations have been deleted by @VincentBean in https://github.com/justbetter/laravel-magento-async/pull/8
+
+
+**Full Changelog**: https://github.com/justbetter/laravel-magento-async/compare/1.2.1...1.2.2
+
 ## [1.2.1](https://github.com/justbetter/laravel-magento-async/releases/tag/1.2.1) - 2025-10-17
 
 ### What's Changed
