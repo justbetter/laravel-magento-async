@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Tests\Actions;
 
 use Illuminate\Support\Carbon;
@@ -10,7 +12,7 @@ use JustBetter\MagentoAsync\Tests\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class CleanBulkRequestsTest extends TestCase
+final class CleanBulkRequestsTest extends TestCase
 {
     #[Test]
     public function it_deletes_completed_operations(): void
@@ -78,58 +80,52 @@ class CleanBulkRequestsTest extends TestCase
         $action->clean();
 
         $deleted = BulkRequest::query()->firstWhere('bulk_uuid', '=', '::bulk-uuid-1::') === null;
-        $this->assertEquals($shouldBeDeleted, $deleted);
+        $this->assertSame($shouldBeDeleted, $deleted);
     }
 
-    /** @return array<string, mixed> */
-    public static function cases(): array
+    /** @return \Iterator<string, mixed> */
+    public static function cases(): \Iterator
     {
-        return [
-            'Pending operation' => [
-                'requestCreatedAt' => now(),
-                'operations' => [
-                    [
-                        'operation_id' => 1,
-                        'status' => null,
-                    ],
+        yield 'Pending operation' => [
+            'requestCreatedAt' => now(),
+            'operations' => [
+                [
+                    'operation_id' => 1,
+                    'status' => null,
                 ],
-                'shouldBeDeleted' => false,
             ],
-
-            'Completed operations' => [
-                'requestCreatedAt' => now()->subHours(2),
-                'operations' => [
-                    [
-                        'operation_id' => 1,
-                        'status' => OperationStatus::Complete,
-                        'updated_at' => now()->subHours(2),
-                    ],
+            'shouldBeDeleted' => false,
+        ];
+        yield 'Completed operations' => [
+            'requestCreatedAt' => now()->subHours(2),
+            'operations' => [
+                [
+                    'operation_id' => 1,
+                    'status' => OperationStatus::Complete,
+                    'updated_at' => now()->subHours(2),
                 ],
-                'shouldBeDeleted' => true,
             ],
-
-            'Failed operations' => [
-                'requestCreatedAt' => now()->subHours(1),
-                'operations' => [
-                    [
-                        'operation_id' => 1,
-                        'status' => OperationStatus::RetriablyFailed,
-                    ],
+            'shouldBeDeleted' => true,
+        ];
+        yield 'Failed operations' => [
+            'requestCreatedAt' => now()->subHours(1),
+            'operations' => [
+                [
+                    'operation_id' => 1,
+                    'status' => OperationStatus::RetriablyFailed,
                 ],
-                'shouldBeDeleted' => false,
             ],
-
-            'Cleanup time' => [
-                'requestCreatedAt' => now()->subWeek(),
-                'operations' => [
-                    [
-                        'operation_id' => 1,
-                        'status' => OperationStatus::RetriablyFailed,
-                    ],
+            'shouldBeDeleted' => false,
+        ];
+        yield 'Cleanup time' => [
+            'requestCreatedAt' => now()->subWeek(),
+            'operations' => [
+                [
+                    'operation_id' => 1,
+                    'status' => OperationStatus::RetriablyFailed,
                 ],
-                'shouldBeDeleted' => true,
             ],
-
+            'shouldBeDeleted' => true,
         ];
     }
 }

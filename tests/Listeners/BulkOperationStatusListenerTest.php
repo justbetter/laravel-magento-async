@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Tests\Listeners;
 
 use JustBetter\MagentoAsync\Events\BulkOperationStatusEvent;
@@ -10,7 +12,7 @@ use JustBetter\MagentoAsync\Tests\TestCase;
 use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Test;
 
-class BulkOperationStatusListenerTest extends TestCase
+final class BulkOperationStatusListenerTest extends TestCase
 {
     #[Test]
     public function it_can_handle_a_status_change(): void

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
@@ -14,6 +16,7 @@ use JustBetter\MagentoAsync\Commands\UpdateBulkStatusesCommand;
 
 class ServiceProvider extends BaseServiceProvider
 {
+    #[\Override]
     public function register(): void
     {
         $this

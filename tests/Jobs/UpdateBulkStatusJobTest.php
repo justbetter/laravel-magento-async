@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Tests\Jobs;
 
 use JustBetter\MagentoAsync\Contracts\UpdatesBulkStatus;
@@ -9,7 +11,7 @@ use JustBetter\MagentoAsync\Tests\TestCase;
 use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Test;
 
-class UpdateBulkStatusJobTest extends TestCase
+final class UpdateBulkStatusJobTest extends TestCase
 {
     #[Test]
     public function it_can_update_bulk_statuses(): void

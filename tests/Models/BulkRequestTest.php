@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Tests\Models;
 
 use JustBetter\MagentoAsync\Models\BulkRequest;
 use JustBetter\MagentoAsync\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-class BulkRequestTest extends TestCase
+final class BulkRequestTest extends TestCase
 {
     #[Test]
     public function it_can_have_operations(): void

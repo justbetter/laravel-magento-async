@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Commands;
 
 use Illuminate\Console\Command;
@@ -25,7 +27,7 @@ class RetryBulkRequestCommand extends Command
 
         $bulkRequest = $contract->retry($request, $onlyFailed);
 
-        if ($bulkRequest === null) {
+        if (! $bulkRequest instanceof BulkRequest) {
             $this->error('Failed to retry bulk request');
 
             return static::FAILURE;

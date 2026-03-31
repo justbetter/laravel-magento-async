@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Actions;
 
 use Illuminate\Database\Eloquent\Model;
@@ -28,8 +30,11 @@ class RetryBulkRequest implements RetriesBulkRequest
 
             /** @var ?BulkOperation $operation */
             $operation = $operations->where('operation_id', '=', $index)->first();
+            if ($operation === null) {
+                continue;
+            }
 
-            if ($operation === null || ($onlyFailed && ! in_array($operation->status, OperationStatus::failedStatuses()))) {
+            if ($onlyFailed && ! in_array($operation->status, OperationStatus::failedStatuses())) {
                 continue;
             }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Tests\Commands;
 
 use Illuminate\Testing\PendingCommand;
@@ -10,7 +12,7 @@ use JustBetter\MagentoAsync\Tests\TestCase;
 use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Test;
 
-class RetryBulkRequestCommandTest extends TestCase
+final class RetryBulkRequestCommandTest extends TestCase
 {
     #[Test]
     public function it_calls_action(): void
@@ -29,9 +31,7 @@ class RetryBulkRequestCommandTest extends TestCase
 
         $this->mock(RetriesBulkRequest::class, function (MockInterface $mock) use ($request): void {
             $mock->shouldReceive('retry')
-                ->withArgs(function (BulkRequest $bulkRequest, bool $onlyFailed) use ($request) {
-                    return $bulkRequest->id === $request->id && $onlyFailed;
-                })->once()
+                ->withArgs(fn (BulkRequest $bulkRequest, bool $onlyFailed): bool => $bulkRequest->id === $request->id && $onlyFailed)->once()
                 ->andReturn($request);
         });
 
@@ -61,9 +61,7 @@ class RetryBulkRequestCommandTest extends TestCase
 
         $this->mock(RetriesBulkRequest::class, function (MockInterface $mock) use ($request): void {
             $mock->shouldReceive('retry')
-                ->withArgs(function (BulkRequest $bulkRequest, bool $onlyFailed) use ($request) {
-                    return $bulkRequest->id === $request->id && $onlyFailed;
-                })->once()
+                ->withArgs(fn (BulkRequest $bulkRequest, bool $onlyFailed): bool => $bulkRequest->id === $request->id && $onlyFailed)->once()
                 ->andReturnNull();
         });
 
