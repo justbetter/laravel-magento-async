@@ -1,6 +1,14 @@
 # Changelog 
 
-[Unreleased changes](https://github.com/justbetter/laravel-magento-async/compare/1.2.2...main)
+[Unreleased changes](https://github.com/justbetter/laravel-magento-async/compare/1.3.0...main)
+## [1.3.0](https://github.com/justbetter/laravel-magento-async/releases/tag/1.3.0) - 2026-04-02
+
+### What's Changed
+* Laravel 13 support by @VincentBean in https://github.com/justbetter/laravel-magento-async/pull/9
+
+
+**Full Changelog**: https://github.com/justbetter/laravel-magento-async/compare/1.2.2...1.3.0
+
 ## [1.2.2](https://github.com/justbetter/laravel-magento-async/releases/tag/1.2.2) - 2025-12-10
 
 ### What's Changed
