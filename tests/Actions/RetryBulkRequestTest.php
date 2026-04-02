@@ -45,6 +45,9 @@ final class RetryBulkRequestTest extends TestCase
                 [
                     'call-3',
                 ],
+                [
+                    'call-4',
+                ],
             ],
             'response' => [],
             'created_at' => now(),
