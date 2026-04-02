@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Tests\Actions;
 
 use Illuminate\Support\Facades\Http;
@@ -12,7 +14,7 @@ use JustBetter\MagentoClient\Client\Magento;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
-class RetryBulkRequestTest extends TestCase
+final class RetryBulkRequestTest extends TestCase
 {
     #[Test]
     #[DataProvider('httpMethodProvider')]
@@ -43,6 +45,9 @@ class RetryBulkRequestTest extends TestCase
                 [
                     'call-3',
                 ],
+                [
+                    'call-4',
+                ],
             ],
             'response' => [],
             'created_at' => now(),
@@ -58,7 +63,7 @@ class RetryBulkRequestTest extends TestCase
             'operation_id' => 1,
             'status' => OperationStatus::RetriablyFailed,
             'subject_id' => $request->id,
-            'subject_type' => get_class($request),
+            'subject_type' => $request::class,
         ]);
 
         $request->operations()->create([
@@ -71,21 +76,19 @@ class RetryBulkRequestTest extends TestCase
 
         $retry = $action->retry($request, true);
 
-        $this->assertNotNull($retry);
+        $this->assertInstanceOf(BulkRequest::class, $retry);
         $this->assertEquals('::path::', $retry->path);
         $this->assertEquals($method, $retry->method);
         $this->assertEquals([['call-2']], $retry->request);
         $this->assertEquals($request->id, $retry->retry_of);
     }
 
-    /** @return array<int, array<string, string>> */
-    public static function httpMethodProvider(): array
+    /** @return \Iterator<int, array<string, string>> */
+    public static function httpMethodProvider(): \Iterator
     {
-        return [
-            ['method' => 'POST'],
-            ['method' => 'PUT'],
-            ['method' => 'DELETE'],
-        ];
+        yield ['method' => 'POST'];
+        yield ['method' => 'PUT'];
+        yield ['method' => 'DELETE'];
     }
 
     #[Test]
@@ -109,7 +112,7 @@ class RetryBulkRequestTest extends TestCase
         $action = app(RetryBulkRequest::class);
 
         $result = $action->retry($request, false);
-        $this->assertNull($result);
+        $this->assertNotInstanceOf(BulkRequest::class, $result);
 
         Http::assertNothingSent();
     }

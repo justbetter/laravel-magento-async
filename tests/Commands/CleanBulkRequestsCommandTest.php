@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Tests\Commands;
 
 use Illuminate\Support\Facades\Bus;
@@ -8,7 +10,7 @@ use JustBetter\MagentoAsync\Jobs\CleanBulkRequestsJob;
 use JustBetter\MagentoAsync\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-class CleanBulkRequestsCommandTest extends TestCase
+final class CleanBulkRequestsCommandTest extends TestCase
 {
     #[Test]
     public function it_dispatches_job(): void

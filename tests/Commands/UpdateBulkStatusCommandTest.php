@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Tests\Commands;
 
 use Illuminate\Support\Facades\Bus;
@@ -10,7 +12,7 @@ use JustBetter\MagentoAsync\Models\BulkRequest;
 use JustBetter\MagentoAsync\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-class UpdateBulkStatusCommandTest extends TestCase
+final class UpdateBulkStatusCommandTest extends TestCase
 {
     #[Test]
     public function it_can_dispatch_jobs(): void

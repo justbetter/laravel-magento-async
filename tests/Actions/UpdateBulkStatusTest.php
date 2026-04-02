@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Tests\Actions;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Http;
 use JustBetter\MagentoAsync\Actions\UpdateBulkStatus;
@@ -11,7 +14,7 @@ use JustBetter\MagentoAsync\Tests\TestCase;
 use JustBetter\MagentoClient\Client\Magento;
 use PHPUnit\Framework\Attributes\Test;
 
-class UpdateBulkStatusTest extends TestCase
+final class UpdateBulkStatusTest extends TestCase
 {
     #[Test]
     public function it_can_update_bulk_statuses(): void
@@ -57,7 +60,7 @@ class UpdateBulkStatusTest extends TestCase
         $action = app(UpdateBulkStatus::class);
         $action->update($bulkRequest);
 
-        $this->assertNotNull($bulkRequest->started_at);
+        $this->assertInstanceOf(Carbon::class, $bulkRequest->started_at);
 
         Event::assertDispatched(BulkOperationStatusEvent::class);
     }
@@ -112,7 +115,7 @@ class UpdateBulkStatusTest extends TestCase
         $action = app(UpdateBulkStatus::class);
         $action->update($bulkRequest);
 
-        $this->assertNull($bulkRequest->started_at);
+        $this->assertNotInstanceOf(Carbon::class, $bulkRequest->started_at);
 
         Event::assertDispatched(BulkOperationStatusEvent::class);
     }

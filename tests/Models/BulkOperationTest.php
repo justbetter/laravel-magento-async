@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Tests\Models;
 
+use Illuminate\Database\Eloquent\Model;
 use JustBetter\MagentoAsync\Models\BulkOperation;
 use JustBetter\MagentoAsync\Models\BulkRequest;
 use JustBetter\MagentoAsync\Tests\TestCase;
 use PHPUnit\Framework\Attributes\Test;
 
-class BulkOperationTest extends TestCase
+final class BulkOperationTest extends TestCase
 {
     #[Test]
     public function it_is_linked_to_a_request_and_can_have_a_subject(): void
@@ -30,7 +33,7 @@ class BulkOperationTest extends TestCase
             'operation_id' => 0,
         ]);
 
-        $this->assertNotNull($operation->subject);
-        $this->assertNotNull($operation->request);
+        $this->assertInstanceOf(Model::class, $operation->subject);
+        $this->assertInstanceOf(BulkRequest::class, $operation->request);
     }
 }

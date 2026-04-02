@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Tests\Fakes;
 
 use JustBetter\MagentoAsync\Listeners\BulkOperationStatusListener;

@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Tests\Client;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Http;
 use JustBetter\MagentoAsync\Client\MagentoAsync;
 use JustBetter\MagentoAsync\Models\BulkOperation;
@@ -10,7 +13,7 @@ use JustBetter\MagentoAsync\Tests\TestCase;
 use JustBetter\MagentoClient\Client\Magento;
 use PHPUnit\Framework\Attributes\Test;
 
-class MagentoAsyncTest extends TestCase
+final class MagentoAsyncTest extends TestCase
 {
     #[Test]
     public function it_can_process_responses(): void
@@ -63,17 +66,17 @@ class MagentoAsyncTest extends TestCase
             ->subject($subject)
             ->post('path', []);
 
-        $this->assertEquals(1, $processed);
-        $this->assertEquals(1, $accepted);
-        $this->assertEquals(0, $rejected);
-        $this->assertEquals(1, $completed);
+        $this->assertSame(1, $processed);
+        $this->assertSame(1, $accepted);
+        $this->assertSame(0, $rejected);
+        $this->assertSame(1, $completed);
 
         $this->assertEquals(1, $request->operations()->count());
 
         /** @var BulkOperation $operation */
         $operation = $request->operations()->first();
 
-        $this->assertNotNull($operation->subject);
+        $this->assertInstanceOf(Model::class, $operation->subject);
     }
 
     #[Test]
@@ -143,10 +146,10 @@ class MagentoAsyncTest extends TestCase
             ->subjects($subjects)
             ->postBulk('path', []);
 
-        $this->assertEquals(2, $processed);
-        $this->assertEquals(1, $accepted);
-        $this->assertEquals(1, $rejected);
-        $this->assertEquals(1, $completed);
+        $this->assertSame(2, $processed);
+        $this->assertSame(1, $accepted);
+        $this->assertSame(1, $rejected);
+        $this->assertSame(1, $completed);
 
         $this->assertEquals(2, $request->operations()->count());
     }

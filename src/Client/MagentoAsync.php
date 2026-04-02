@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace JustBetter\MagentoAsync\Client;
 
 use Closure;
@@ -177,22 +179,22 @@ class MagentoAsync
                 $subject,
             ];
 
-            if ($this->onProcessed !== null) {
+            if ($this->onProcessed instanceof Closure) {
                 call_user_func($this->onProcessed, $parameters);
             }
 
             $status = ItemStatus::tryFrom($requestItem['status']);
 
-            if ($status === ItemStatus::Accepted && $this->onAccepted !== null) {
+            if ($status === ItemStatus::Accepted && $this->onAccepted instanceof Closure) {
                 call_user_func($this->onAccepted, $parameters);
             }
 
-            if ($status === ItemStatus::Rejected && $this->onRejected !== null) {
+            if ($status === ItemStatus::Rejected && $this->onRejected instanceof Closure) {
                 call_user_func($this->onRejected, $parameters);
             }
         }
 
-        if ($this->onCompleted !== null) {
+        if ($this->onCompleted instanceof Closure) {
             call_user_func($this->onCompleted, $bulkRequest);
         }
 
