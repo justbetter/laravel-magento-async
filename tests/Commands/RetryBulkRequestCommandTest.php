@@ -30,8 +30,10 @@ final class RetryBulkRequestCommandTest extends TestCase
         ]);
 
         $this->mock(RetriesBulkRequest::class, function (MockInterface $mock) use ($request): void {
-            $mock->shouldReceive('retry')
-                ->withArgs(fn (BulkRequest $bulkRequest, bool $onlyFailed): bool => $bulkRequest->id === $request->id && $onlyFailed)->once()
+            $mock
+                ->shouldReceive('retry')
+                ->withArgs(fn (BulkRequest $bulkRequest, bool $onlyFailed): bool => $bulkRequest->id === $request->id && $onlyFailed)
+                ->once()
                 ->andReturn($request);
         });
 
@@ -60,8 +62,10 @@ final class RetryBulkRequestCommandTest extends TestCase
         ]);
 
         $this->mock(RetriesBulkRequest::class, function (MockInterface $mock) use ($request): void {
-            $mock->shouldReceive('retry')
-                ->withArgs(fn (BulkRequest $bulkRequest, bool $onlyFailed): bool => $bulkRequest->id === $request->id && $onlyFailed)->once()
+            $mock
+                ->shouldReceive('retry')
+                ->withArgs(fn (BulkRequest $bulkRequest, bool $onlyFailed): bool => $bulkRequest->id === $request->id && $onlyFailed)
+                ->once()
                 ->andReturnNull();
         });
 
